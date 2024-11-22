@@ -1,9 +1,12 @@
 package visual;
 
+import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 
 
 public class VtnProducto extends javax.swing.JFrame {
+    
+    DefaultTableModel modeloTabla = null;
     
     Producto objProducto = new Producto();
     VtnPrincipal objVtnPrin = null;
@@ -14,6 +17,7 @@ public class VtnProducto extends javax.swing.JFrame {
         this.objVtnPrin = objVtnPrin;
         this.objProducto = objProducto;
         initComponents();
+        modeloTabla = (DefaultTableModel)tblDatos.getModel();
     }
     
     public VtnProducto() {
@@ -30,7 +34,7 @@ public class VtnProducto extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         Boddy = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblDatos = new javax.swing.JTable();
         lblNombreProducto = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
@@ -67,17 +71,24 @@ public class VtnProducto extends javax.swing.JFrame {
 
         Boddy.setLayout(new java.awt.GridBagLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatos.setAutoCreateRowSorter(true);
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Nombre", "Cantidad", "Precio", "Categoria"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblDatos);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -183,6 +194,11 @@ public class VtnProducto extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
@@ -192,6 +208,11 @@ public class VtnProducto extends javax.swing.JFrame {
         btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 11;
@@ -201,6 +222,11 @@ public class VtnProducto extends javax.swing.JFrame {
         btnEliminar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 11;
@@ -276,6 +302,46 @@ public class VtnProducto extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCategoriaActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        objProducto.setNombre(txtNombre.getText());
+        objProducto.setCantidad((Integer)(spCantidad.getValue()));
+        objProducto.setCategoria(cbCategoria.getItemAt(cbCategoria.getSelectedIndex()));
+        objProducto.setDescripcion(txtaDescripcion.getText());
+        objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+        modeloTabla.addRow(new Object[]{
+            objProducto.getNombre(), objProducto.getCantidad(), objProducto.getPrecio(), objProducto.getCategoria()
+        });
+        //^Todo esto lo saque de este video: https://www.youtube.com/watch?v=A7pKIGhTokQ
+        
+        System.out.println("Se Guardo correctamente");
+        System.out.println("Nombre: " + objProducto.getNombre());
+        System.out.println("Categoria: " + objProducto.getCategoria());
+        System.out.println("Cantidad: " + objProducto.getCantidad());
+        System.out.println("Precio: " + objProducto.getPrecio());
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //Checa que este seleccionando algo.
+        if(tblDatos.getSelectedRow() == -1){
+            
+        }else{
+            modeloTabla.removeRow(tblDatos.getSelectedRow());
+        }
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        objProducto.setNombre(txtNombre.getText());
+        objProducto.setCantidad((Integer)(spCantidad.getValue()));
+        objProducto.setCategoria(cbCategoria.getItemAt(cbCategoria.getSelectedIndex()));
+        objProducto.setDescripcion(txtaDescripcion.getText());
+        objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+        //Se edita 
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,7 +392,6 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcion;
@@ -334,6 +399,7 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JSpinner spCantidad;
+    private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextArea txtaDescripcion;
