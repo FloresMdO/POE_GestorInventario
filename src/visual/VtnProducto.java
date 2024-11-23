@@ -431,8 +431,9 @@ public class VtnProducto extends javax.swing.JFrame {
         int selectedrowindex = tblDatos.getSelectedRow();
         txtNombre.setText(tblModel.getValueAt(selectedrowindex, 0).toString());
         txtaDescripcion.setText(tblModel.getValueAt(selectedrowindex, 1).toString());
+        cmbCategoria.setSelectedItem(tblModel.getValueAt(selectedrowindex, 2));
+        spCantidad.setValue(Integer.valueOf(tblModel.getValueAt(selectedrowindex, 3).toString()));
         txtPrecio.setText(tblModel.getValueAt(selectedrowindex, 4).toString());
-        
     }//GEN-LAST:event_tblDatosMouseClicked
 
     /**
