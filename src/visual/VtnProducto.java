@@ -437,6 +437,27 @@ public class VtnProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
+        int selectedrowindex = tblDatos.getSelectedRow();
+            
+        //Checa que este seleccionando algo.
+        if(tblDatos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione el producto que desea editar");
+        } else {
+            String buscando = txtNombre.getText();
+            
+            objBD.abrirConexion();
+            objProducto = objBD.buscarProducto(buscando);
+            objBD.cerrarConecion();
+            
+            if (objProducto != null) {
+                objBD.abrirConexion();
+                objBD.actualizarProducto(objProducto);
+                objBD.cerrarConecion();
+            }
+            
+        }
+
         // TODO add your handling code here:
         objProducto.setNombre(txtNombre.getText());
         objProducto.setCantidad((Integer)(spCantidad.getValue()));
@@ -444,6 +465,8 @@ public class VtnProducto extends javax.swing.JFrame {
         objProducto.setDescripcion(txtaDescripcion.getText());
         objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
         //Se edita 
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked

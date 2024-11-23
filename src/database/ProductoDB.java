@@ -75,11 +75,11 @@ public class ProductoDB {
             stInsertar.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al insertar registro en la tabla " + nombreBD);
+            System.out.println("Error al insertar registro en la base de datos " + nombreBD);
         }
     }
     
-     public Producto buscarProducto(String nombre) {
+    public Producto buscarProducto(String nombre) {
         Producto objProducto = null;
         ResultSet rs;
         try {
@@ -95,9 +95,26 @@ public class ProductoDB {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al consultar producto en la tabla " + nombreBD); 
+            System.out.println("Error al consultar producto en la base de datos " + nombreBD); 
         }
         return objProducto; 
+    }
+    
+    public void actualizarProducto(Producto objProducto) {
+        try {
+            stActualizar.setString(1, objProducto.getNombre());
+            stActualizar.setString(2, objProducto.getDescripcion());
+            stActualizar.setString(3, objProducto.getCategoria());
+               stActualizar.setInt(4, objProducto.getCantidad());
+            stActualizar.setDouble(5, objProducto.getPrecio());
+            
+            stActualizar.executeLargeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error al actualzar las producto en la base de datos " + nombreBD);
+            
+        }
     }
     
     public void eliminarProducto(Producto objProducto) {
@@ -106,7 +123,7 @@ public class ProductoDB {
             stEliminar.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al eliminar producto de la tabla " + nombreBD);
+            System.out.println("Error al eliminar producto de la base de datos " + nombreBD);
         }
     }
     
