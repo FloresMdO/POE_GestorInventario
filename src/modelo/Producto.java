@@ -1,6 +1,6 @@
 package modelo;
 
-public class Producto {
+public class Producto extends Categoria {
     
     private String nombre;
     private String descripcion;

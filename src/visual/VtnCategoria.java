@@ -1,7 +1,21 @@
 package visual;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
+import database.CategoriaBD;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+
 
 public class VtnCategoria extends javax.swing.JFrame {
-    
+    Categoria objCategoria = new Categoria();
+    ArrayList lista = new ArrayList();
+    CategoriaBD objBD = new CategoriaBD();
     VtnProducto objVtnProd = null;
             
     public VtnCategoria() {
@@ -10,6 +24,30 @@ public class VtnCategoria extends javax.swing.JFrame {
     public VtnCategoria(VtnProducto objVtnProd) {
         this.objVtnProd = objVtnProd;
         initComponents();
+        actualizarLista();
+    }
+    
+    private void actualizarLista(){
+        DefaultListModel lsModel = new DefaultListModel();
+        lsCategorias.setModel(lsModel);
+        lista.clear();
+        
+        try {
+            Connection conn = objBD.abrirConexionJLista();
+            Statement stmt = conn.createStatement(); 
+            String query = "SELECT * FROM Categoria";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                String nombre      = rs.getString("nombre");
+                lista.add(nombre);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Maneja el error de la consulta
+        }
+        for(int i = 0; i < lista.size(); i++){
+            lsModel.addElement(lista.get(i));
+        }
     }
 
     /**
@@ -32,7 +70,7 @@ public class VtnCategoria extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TxtDescripcion = new javax.swing.JTextArea();
+        txtDescripcion = new javax.swing.JTextArea();
         btnAgregar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -51,12 +89,12 @@ public class VtnCategoria extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        lsCategorias.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lsCategorias.setPreferredSize(new java.awt.Dimension(200, 150));
+        lsCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lsCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(lsCategorias);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -75,6 +113,11 @@ public class VtnCategoria extends javax.swing.JFrame {
         jPanel3.add(lblNombre, gridBagConstraints);
 
         txtNombre.setColumns(10);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -90,9 +133,9 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         jPanel3.add(lblDescripcion, gridBagConstraints);
 
-        TxtDescripcion.setColumns(20);
-        TxtDescripcion.setRows(5);
-        jScrollPane2.setViewportView(TxtDescripcion);
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -114,6 +157,11 @@ public class VtnCategoria extends javax.swing.JFrame {
         jPanel3.add(btnAgregar, gridBagConstraints);
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -121,6 +169,11 @@ public class VtnCategoria extends javax.swing.JFrame {
         jPanel3.add(btnEditar, gridBagConstraints);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -181,7 +234,61 @@ public class VtnCategoria extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        if(txtNombre.getText().trim() == ""){
+            JOptionPane.showMessageDialog(this, "Porfavor rellene el nombre");
+        }else{
+            objCategoria.setNombre(txtNombre.getText());
+            objCategoria.setDescripcion(txtDescripcion.getText());
+            objBD.abrirConexion();
+            objBD.insertarCategoria(objCategoria);
+            objBD.cerrarConexion();
+            JOptionPane.showMessageDialog(this, "Objeto agregado con exito");
+            /*DefaultListModel lsModel = new DefaultListModel();
+            lsCategorias.setModel(lsModel);
+            lista.add(objCategoria.getNombre());*/
+            actualizarLista();
+        }
+        
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if(lsCategorias.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione el producto a eliminar");
+        }else{
+            
+            
+            objCategoria.setNombre((String)lsCategorias.getSelectedValue());
+            lista.remove(lsCategorias.getSelectedIndex());
+            objBD.abrirConexion();
+            objBD.eliminarCategoria(objCategoria);
+            objBD.cerrarConexion();
+            actualizarLista();
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void lsCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lsCategoriasMouseClicked
+        // TODO add your handling code here:
+        
+        objBD.abrirConexion();
+        objCategoria = objBD.buscarCategoria(lsCategorias.getSelectedValue());
+        objBD.cerrarConexion();
+        txtNombre.setText(objCategoria.getNombre());
+        txtDescripcion.setText(objCategoria.getDescripcion());
+        
+    }//GEN-LAST:event_lsCategoriasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -220,7 +327,6 @@ public class VtnCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TxtDescripcion;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -235,6 +341,7 @@ public class VtnCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList<String> lsCategorias;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

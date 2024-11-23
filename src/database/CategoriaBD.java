@@ -1,3 +1,4 @@
+
 package database;
 
 import java.sql.Connection;
@@ -6,10 +7,9 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import modelo.Producto;
+import modelo.Categoria;
 
-public class ProductoDB {
-    
+public class CategoriaBD {
     private String nombreBD = "proyecto_poe";
     private String puerto = "3306";
     private String usuario = "root";
@@ -22,7 +22,7 @@ public class ProductoDB {
     
     PreparedStatement stInsertar, stConsultar, stActualizar, stEliminar;
     
-    public ProductoDB() {
+    public CategoriaBD(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -31,21 +31,7 @@ public class ProductoDB {
         }
     }
     
-    public void abrirConexion() {
-        try {
-            conn = DriverManager.getConnection(url,usuario,clave);
-            stInsertar   = conn.prepareStatement("INSERT INTO Producto VALUES (?,?,?,?,?)");
-            stConsultar  = conn.prepareStatement("SELECT * FROM Producto WHERE nombre = ?");
-            stActualizar = conn.prepareStatement("UPDATE Producto SET nombre = ?, descripcion = ?, categoria = ?, cantidad = ?, precio = ? WHERE nombre = ?");
-            stEliminar   = conn.prepareStatement("DELETE FROM Producto WHERE nombre = ?");
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Error al conectarse a la base de datos: " + nombreBD);   
-        }
-    }
-    
-    public Connection abrirConexionJTable() {
+     public Connection abrirConexionJLista() {
          try {
             conn = DriverManager.getConnection(url,usuario,clave);
         } catch (SQLException ex) {
@@ -55,7 +41,21 @@ public class ProductoDB {
         return conn;
     }
     
-    public void cerrarConecion() {
+    public void abrirConexion() {
+        try {
+            conn = DriverManager.getConnection(url,usuario,clave);
+            stInsertar   = conn.prepareStatement("INSERT INTO Categoria VALUES (?,?)");
+            stConsultar  = conn.prepareStatement("SELECT * FROM Categoria WHERE nombre = ?");
+            stActualizar = conn.prepareStatement("UPDATE Categoria SET nombre = ?, descripcion = ? WHERE nombre = ?");
+            stEliminar   = conn.prepareStatement("DELETE FROM Categoria WHERE nombre = ?");
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error al conectarse a la base de datos(Categoria): " + nombreBD);   
+        }
+    }
+    
+    public void cerrarConexion() {
         try {
             conn.close();
         } catch (SQLException ex) {
@@ -63,14 +63,10 @@ public class ProductoDB {
             System.out.println("Error al cerrar la conexión con la base de datos: " + nombreBD);
         }   
     }
-    
-    public void insertarProducto(Producto objPr) {
+    public void insertarCategoria(Categoria objCategoria) {
         try {
-            stInsertar.setString(1, objPr.getNombre());
-            stInsertar.setString(2, objPr.getDescripcion());
-            stInsertar.setString(3, objPr.getCategoria());
-               stInsertar.setInt(4, objPr.getCantidad());
-            stInsertar.setDouble(5, objPr.getPrecio());
+            stInsertar.setString(1, objCategoria.getNombre());
+            stInsertar.setString(2, objCategoria.getDescripcion());
             
             stInsertar.execute();
         } catch (SQLException ex) {
@@ -79,35 +75,31 @@ public class ProductoDB {
         }
     }
     
-    public Producto buscarProducto(String nombre) {
-        Producto objProducto = null;
+    
+    
+    public Categoria buscarCategoria(String nombre) {
+        Categoria objCategoria = null;
         ResultSet rs;
         try {
             stConsultar.setString(1, nombre);  
             rs = stConsultar.executeQuery();    // Linea importante para ejecutar sentencia, siempre que se quiera regresar info
             if (rs.next()) {
-                objProducto = new Producto();
-                objProducto.setNombre(rs.getString("nombre"));
-                objProducto.setDescripcion(rs.getString("descripcion"));
-                objProducto.setCategoria(rs.getString("categoria"));
-                objProducto.setCantidad(rs.getInt("cantidad"));
-                objProducto.setPrecio(rs.getDouble("precio"));
+                objCategoria = new Categoria();
+                objCategoria.setNombre(rs.getString("nombre"));
+                objCategoria.setDescripcion(rs.getString("descripcion"));
+                
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error al consultar producto en la base de datos " + nombreBD); 
         }
-        return objProducto; 
+        return objCategoria; 
     }
     
-    public void actualizarProducto(Producto objProducto) {
+    public void actualizarCategoria(Categoria objCategoria) {
         try {
-            stActualizar.setString(1, objProducto.getNombre());
-            stActualizar.setString(2, objProducto.getDescripcion());
-            stActualizar.setString(3, objProducto.getCategoria());
-               stActualizar.setInt(4, objProducto.getCantidad());
-            stActualizar.setDouble(5, objProducto.getPrecio());
-            
+            stActualizar.setString(1, objCategoria.getNombre());
+            stActualizar.setString(2, objCategoria.getDescripcion());
             stActualizar.executeLargeUpdate();
             
         } catch (SQLException ex) {
@@ -117,15 +109,13 @@ public class ProductoDB {
         }
     }
     
-    public void eliminarProducto(Producto objProducto) {
+    public void eliminarCategoria(Categoria objCategoria) {
         try {
-            stEliminar.setString(1, objProducto.getNombre());
+            stEliminar.setString(1, objCategoria.getNombre());
             stEliminar.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error al eliminar producto de la base de datos " + nombreBD);
         }
     }
-    
-    
 }

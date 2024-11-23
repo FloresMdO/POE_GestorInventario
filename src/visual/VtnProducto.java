@@ -3,6 +3,7 @@ package visual;
 import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 
+import database.CategoriaBD;
 import database.ProductoDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class VtnProducto extends javax.swing.JFrame {
     private DefaultTableModel modeloTabla;
     
     ProductoDB objBD = new ProductoDB();
+    CategoriaBD categoriaBD = new CategoriaBD();
     
     Producto objProducto = new Producto();
     VtnPrincipal objVtnPrin = null;
@@ -35,6 +37,7 @@ public class VtnProducto extends javax.swing.JFrame {
         initComponents();
         
         actualizarTabla();
+        actualizarCategorias();
     }
     
     public VtnProducto() {
@@ -171,7 +174,17 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblCategoria, gridBagConstraints);
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+        cmbCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmbCategoriaFocusGained(evt);
+            }
+        });
+        cmbCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbCategoriaMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -215,7 +228,6 @@ public class VtnProducto extends javax.swing.JFrame {
 
         btnEditar.setBackground(new java.awt.Color(102, 255, 255));
         btnEditar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(95, 30));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +243,6 @@ public class VtnProducto extends javax.swing.JFrame {
 
         btnAgregar.setBackground(new java.awt.Color(51, 255, 102));
         btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
-        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregar.setText("Agregar");
         btnAgregar.setPreferredSize(new java.awt.Dimension(95, 30));
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -337,6 +348,24 @@ public class VtnProducto extends javax.swing.JFrame {
         objBD.cerrarConecion();
         // ---------- Lógica para JTable ----------
     }    
+    
+    private void actualizarCategorias(){
+        cmbCategoria.removeAllItems();
+        cmbCategoria.addItem("-");
+        try {
+            Connection conn = categoriaBD.abrirConexionJLista();
+            Statement stmt = conn.createStatement(); 
+            String query = "SELECT * FROM Categoria";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                String nombre      = rs.getString("nombre");
+                cmbCategoria.addItem(nombre);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Maneja el error de la consulta
+        }
+    }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         objVtnPrin.setVisible(true);
         this.setVisible(false);
@@ -478,6 +507,15 @@ public class VtnProducto extends javax.swing.JFrame {
         spCantidad.setValue(Integer.valueOf(tblModel.getValueAt(selectedrowindex, 3).toString()));
         txtPrecio.setText(tblModel.getValueAt(selectedrowindex, 4).toString());
     }//GEN-LAST:event_tblDatosMouseClicked
+
+    private void cmbCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCategoriaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoriaFocusGained
+
+    private void cmbCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCategoriaMouseClicked
+        // TODO add your handling code here:
+        actualizarCategorias();
+    }//GEN-LAST:event_cmbCategoriaMouseClicked
 
     /**
      * @param args the command line arguments
