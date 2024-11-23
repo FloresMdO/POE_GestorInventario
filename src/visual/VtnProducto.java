@@ -1,9 +1,23 @@
 package visual;
 
+import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
+
+import database.ProductoDB;
+
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 
 public class VtnProducto extends javax.swing.JFrame {
+    
+    //DefaultTableModel modeloTabla = null; // Creado por Gio
+    
+    private JTable tablaProductos;
+    private DefaultTableModel modeloTabla;
+    
+    ProductoDB objBD = new ProductoDB();
     
     Producto objProducto = new Producto();
     VtnPrincipal objVtnPrin = null;
@@ -14,6 +28,11 @@ public class VtnProducto extends javax.swing.JFrame {
         this.objVtnPrin = objVtnPrin;
         this.objProducto = objProducto;
         initComponents();
+        
+        modeloTabla = (DefaultTableModel)tblDatos.getModel();
+        tablaProductos = new JTable(modeloTabla);
+        JScrollPane scrollPane = new JScrollPane(tablaProductos);
+        add(scrollPane);
     }
     
     public VtnProducto() {
@@ -30,14 +49,14 @@ public class VtnProducto extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         Boddy = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblDatos = new javax.swing.JTable();
         lblNombreProducto = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaDescripcion = new javax.swing.JTextArea();
         lblCategoria = new javax.swing.JLabel();
-        cbCategoria = new javax.swing.JComboBox<>();
+        cmbCategoria = new javax.swing.JComboBox<>();
         lblCantidad = new javax.swing.JLabel();
         spCantidad = new javax.swing.JSpinner();
         lblPrecio = new javax.swing.JLabel();
@@ -67,17 +86,24 @@ public class VtnProducto extends javax.swing.JFrame {
 
         Boddy.setLayout(new java.awt.GridBagLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatos.setAutoCreateRowSorter(true);
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Nombre", "Cantidad", "Precio", "Categoria"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblDatos);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -138,14 +164,14 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblCategoria, gridBagConstraints);
 
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
-        Boddy.add(cbCategoria, gridBagConstraints);
+        Boddy.add(cmbCategoria, gridBagConstraints);
 
         lblCantidad.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         lblCantidad.setText("Cantidad");
@@ -180,27 +206,47 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
         Boddy.add(txtPrecio, gridBagConstraints);
 
+        btnEditar.setBackground(new java.awt.Color(102, 255, 255));
         btnEditar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(btnEditar, gridBagConstraints);
 
+        btnAgregar.setBackground(new java.awt.Color(51, 255, 102));
         btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregar.setText("Agregar");
         btnAgregar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(btnAgregar, gridBagConstraints);
 
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 11;
@@ -257,7 +303,23 @@ public class VtnProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void cargarProductos() {
+    modeloTabla.setRowCount(0); // Limpia la tabla
+    objBD.abrirConexion();
+    var productos = objBD.actualizarTabla(); // Método que devuelve una lista de productos
+    objBD.cerrarConecion();
 
+    for (Producto producto : productos) {
+        modeloTabla.addRow(new Object[]{
+            producto.getNombre(),
+            producto.getCantidad(),
+            producto.getPrecio(),
+            producto.getCategoria()
+        });
+    }
+}
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         objVtnPrin.setVisible(true);
         this.setVisible(false);
@@ -275,6 +337,76 @@ public class VtnProducto extends javax.swing.JFrame {
         objVtnCateg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCategoriaActionPerformed
+    private void limpiarCampos() {
+        txtNombre.setText("");
+        txtaDescripcion.setText("");
+        spCantidad.setValue(0);
+        txtPrecio.setText("");
+    }
+    
+    private boolean validarCampos() {
+        boolean bandera = false;
+        String categoriaSeleccion = (String) cmbCategoria.getSelectedItem();
+        if (!txtNombre.getText().trim().equals("") & !txtaDescripcion.getText().trim().equals("") & !txtPrecio.getText().trim().equals("")) {
+            if ((categoriaSeleccion != "-" || !categoriaSeleccion.isEmpty())) {
+                bandera = true;
+            }
+        }
+        return bandera;
+    }
+    
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    if (validarCampos()) {
+            // TODO add your handling code here:
+            objProducto.setNombre(txtNombre.getText());
+            objProducto.setCantidad((Integer)(spCantidad.getValue()));
+            objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
+            objProducto.setDescripcion(txtaDescripcion.getText());
+            objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+            modeloTabla.addRow(new Object[]{
+                objProducto.getNombre(), objProducto.getCantidad(), objProducto.getPrecio(), objProducto.getCategoria()
+            });
+            
+            // Todo esto lo saque de este video: https://www.youtube.com/watch?v=A7pKIGhTokQ
+        
+            System.out.println("Se Guardo correctamente");
+            System.out.println("Nombre: " + objProducto.getNombre());
+            System.out.println("Categoria: " + objProducto.getCategoria());
+            System.out.println("Cantidad: " + objProducto.getCantidad());
+            System.out.println("Precio: " + objProducto.getPrecio());
+            
+            
+            objBD.abrirConexion();
+            objBD.insertarProducto(objProducto);
+            objBD.cerrarConecion();
+            
+            JOptionPane.showMessageDialog(this, "Producto creado con éxito");
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Para agregar un nuevo producto, llene todos los campos");
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //Checa que este seleccionando algo.
+        if(tblDatos.getSelectedRow() == -1){
+            
+        }else{
+            modeloTabla.removeRow(tblDatos.getSelectedRow());
+        }
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        objProducto.setNombre(txtNombre.getText());
+        objProducto.setCantidad((Integer)(spCantidad.getValue()));
+        objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
+        objProducto.setDescripcion(txtaDescripcion.getText());
+        objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+        //Se edita 
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,11 +454,10 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> cbCategoria;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcion;
@@ -334,6 +465,7 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JSpinner spCantidad;
+    private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextArea txtaDescripcion;
