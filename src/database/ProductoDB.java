@@ -8,10 +8,6 @@ import java.sql.ResultSet;
 
 import modelo.Producto;
 
-// Librerias para manejo de la JTable
-import java.sql.Statement;
-import javax.swing.table.DefaultTableModel;
-
 public class ProductoDB {
     
     private String nombreBD = "proyecto_poe";
@@ -83,14 +79,36 @@ public class ProductoDB {
         }
     }
     
-
-
-
+     public Producto buscarProducto(String nombre) {
+        Producto objProducto = null;
+        ResultSet rs;
+        try {
+            stConsultar.setString(1, nombre);  
+            rs = stConsultar.executeQuery();    // Linea importante para ejecutar sentencia, siempre que se quiera regresar info
+            if (rs.next()) {
+                objProducto = new Producto();
+                objProducto.setNombre(rs.getString("nombre"));
+                objProducto.setDescripcion(rs.getString("descripcion"));
+                objProducto.setCategoria(rs.getString("categoria"));
+                objProducto.setCantidad(rs.getInt("cantidad"));
+                objProducto.setPrecio(rs.getDouble("precio"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error al consultar producto en la tabla " + nombreBD); 
+        }
+        return objProducto; 
+    }
     
-    
-    
-    
-    
+    public void eliminarProducto(Producto objProducto) {
+        try {
+            stEliminar.setString(1, objProducto.getNombre());
+            stEliminar.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error al eliminar producto de la tabla " + nombreBD);
+        }
+    }
     
     
 }

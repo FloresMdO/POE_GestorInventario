@@ -33,9 +33,8 @@ public class VtnProducto extends javax.swing.JFrame {
         this.objVtnPrin = objVtnPrin;
         this.objProducto = objProducto;
         initComponents();
+        
         actualizarTabla();
-        
-        
     }
     
     public VtnProducto() {
@@ -313,7 +312,7 @@ public class VtnProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void actualizarTabla() {
         // ---------- Lógica para JTable ----------
-        // Còdigo obtenido de https://www.youtube.com/watch?v=frafcK6fhdQ
+        // Codigo obtenido de https://www.youtube.com/watch?v=frafcK6fhdQ
         try {
             Connection conn = objBD.abrirConexionJTable();
             Statement stmt = conn.createStatement(); 
@@ -330,7 +329,7 @@ public class VtnProducto extends javax.swing.JFrame {
                 String tbData[] = {nombre,descripcion,categoria,cantidad,precio};
                 DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
                 
-                tblModel.addRow(tbData);    
+                tblModel.addRow(tbData); 
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Maneja el error de la consulta
@@ -358,6 +357,7 @@ public class VtnProducto extends javax.swing.JFrame {
     private void limpiarCampos() {
         txtNombre.setText("");
         txtaDescripcion.setText("");
+        cmbCategoria.setSelectedItem("-");
         spCantidad.setValue(0);
         txtPrecio.setText("");
     }
@@ -374,14 +374,17 @@ public class VtnProducto extends javax.swing.JFrame {
     }
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-    if (validarCampos()) {
+        if (validarCampos()) {
+           DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
+           
             // TODO add your handling code here:
             objProducto.setNombre(txtNombre.getText());
             objProducto.setCantidad((Integer)(spCantidad.getValue()));
             objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
             objProducto.setDescripcion(txtaDescripcion.getText());
             objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            modeloTabla.addRow(new Object[]{
+            
+            tblModel.addRow(new Object[]{
                 objProducto.getNombre(), objProducto.getDescripcion() , objProducto.getCategoria(), objProducto.getCantidad(), objProducto.getPrecio()
             });
             
@@ -392,7 +395,6 @@ public class VtnProducto extends javax.swing.JFrame {
             System.out.println("Categoria: " + objProducto.getCategoria());
             System.out.println("Cantidad: " + objProducto.getCantidad());
             System.out.println("Precio: " + objProducto.getPrecio());
-            
             
             objBD.abrirConexion();
             objBD.insertarProducto(objProducto);
@@ -406,14 +408,32 @@ public class VtnProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
+        int selectedrowindex = tblDatos.getSelectedRow();
+            
         //Checa que este seleccionando algo.
         if(tblDatos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione el producto a eliminar");
+        } else {
+            //modeloTabla.removeRow(tblDatos.getSelectedRow());
             
-        }else{
-            modeloTabla.removeRow(tblDatos.getSelectedRow());
-        }
-        
-        
+            String buscando = txtNombre.getText();
+            
+            objBD.abrirConexion();
+            objProducto = objBD.buscarProducto(buscando);
+            objBD.cerrarConecion();
+            
+            if (objProducto != null) {
+                tblModel.removeRow(tblDatos.getSelectedRow());
+                
+                objBD.abrirConexion();
+                objBD.eliminarProducto(objProducto);
+                objBD.cerrarConecion();
+                
+                JOptionPane.showMessageDialog(this, "Producto Eliminado corectamente");
+                limpiarCampos();
+            }
+        } 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
