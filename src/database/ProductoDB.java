@@ -1,7 +1,5 @@
 package database;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,8 +10,7 @@ import modelo.Producto;
 
 // Librerias para manejo de la JTable
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class ProductoDB {
     
@@ -52,6 +49,16 @@ public class ProductoDB {
         }
     }
     
+    public Connection abrirConexionJTable() {
+         try {
+            conn = DriverManager.getConnection(url,usuario,clave);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error al conectarse a la base de datos: " + nombreBD);   
+        }
+        return conn;
+    }
+    
     public void cerrarConecion() {
         try {
             conn.close();
@@ -76,30 +83,6 @@ public class ProductoDB {
         }
     }
     
-
-    public List<Producto> obtenerProductos() {
-        List<Producto> productos = new ArrayList<>();
-        
-        String query = "SELECT * FROM productos"; // Cambia esto por el nombre correcto de tu tabla
-        
-        try (Statement stmt = conn.createStatement(); 
-             ResultSet rs = stmt.executeQuery(query)) {
-            
-            while (rs.next()) {
-                Producto producto = new Producto();
-                producto.setNombre(rs.getString("nombre"));
-                producto.setDescripcion(rs.getString("descripcion"));
-                producto.setCategoria(rs.getString("categoria"));
-                producto.setCantidad(rs.getInt("cantidad"));
-                producto.setPrecio(rs.getDouble("precio"));
-                
-                productos.add(producto);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Maneja el error de la consulta
-        }
-        return productos;
-    }
 
 
 

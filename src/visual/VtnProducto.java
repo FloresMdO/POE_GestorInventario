@@ -4,10 +4,15 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 
 import database.ProductoDB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import java.sql.Connection;
 
 
 public class VtnProducto extends javax.swing.JFrame {
@@ -28,11 +33,9 @@ public class VtnProducto extends javax.swing.JFrame {
         this.objVtnPrin = objVtnPrin;
         this.objProducto = objProducto;
         initComponents();
+        actualizarTabla();
         
-        modeloTabla = (DefaultTableModel)tblDatos.getModel();
-        tablaProductos = new JTable(modeloTabla);
-        JScrollPane scrollPane = new JScrollPane(tablaProductos);
-        add(scrollPane);
+        
     }
     
     public VtnProducto() {
@@ -92,15 +95,20 @@ public class VtnProducto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Cantidad", "Precio", "Categoria"
+                "Nombre", "Descripcion", "Categoria", "Cantidad", "Precio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDatosMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblDatos);
@@ -303,23 +311,33 @@ public class VtnProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void cargarProductos() {
-    modeloTabla.setRowCount(0); // Limpia la tabla
-    objBD.abrirConexion();
-    var productos = objBD.actualizarTabla(); // Método que devuelve una lista de productos
-    objBD.cerrarConecion();
-
-    for (Producto producto : productos) {
-        modeloTabla.addRow(new Object[]{
-            producto.getNombre(),
-            producto.getCantidad(),
-            producto.getPrecio(),
-            producto.getCategoria()
-        });
-    }
-}
-    
+    private void actualizarTabla() {
+        // ---------- Lógica para JTable ----------
+        // Còdigo obtenido de https://www.youtube.com/watch?v=frafcK6fhdQ
+        try {
+            Connection conn = objBD.abrirConexionJTable();
+            Statement stmt = conn.createStatement(); 
+            String query = "SELECT * FROM Producto";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                String nombre      = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String categoria   = rs.getString("categoria");
+                String cantidad    = String.valueOf(rs.getInt("cantidad"));
+                String precio      = String.valueOf(rs.getInt("precio"));
+                
+                String tbData[] = {nombre,descripcion,categoria,cantidad,precio};
+                DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
+                
+                tblModel.addRow(tbData);    
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Maneja el error de la consulta
+        }
+        objBD.cerrarConecion();
+        // ---------- Lógica para JTable ----------
+    }    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         objVtnPrin.setVisible(true);
         this.setVisible(false);
@@ -364,7 +382,7 @@ public class VtnProducto extends javax.swing.JFrame {
             objProducto.setDescripcion(txtaDescripcion.getText());
             objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
             modeloTabla.addRow(new Object[]{
-                objProducto.getNombre(), objProducto.getCantidad(), objProducto.getPrecio(), objProducto.getCategoria()
+                objProducto.getNombre(), objProducto.getDescripcion() , objProducto.getCategoria(), objProducto.getCantidad(), objProducto.getPrecio()
             });
             
             // Todo esto lo saque de este video: https://www.youtube.com/watch?v=A7pKIGhTokQ
@@ -407,6 +425,15 @@ public class VtnProducto extends javax.swing.JFrame {
         objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
         //Se edita 
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+        DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
+        int selectedrowindex = tblDatos.getSelectedRow();
+        txtNombre.setText(tblModel.getValueAt(selectedrowindex, 0).toString());
+        txtaDescripcion.setText(tblModel.getValueAt(selectedrowindex, 1).toString());
+        txtPrecio.setText(tblModel.getValueAt(selectedrowindex, 4).toString());
+        
+    }//GEN-LAST:event_tblDatosMouseClicked
 
     /**
      * @param args the command line arguments
