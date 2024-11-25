@@ -74,12 +74,12 @@ public class VtnProducto extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
+        mnAgregar = new javax.swing.JRadioButtonMenuItem();
+        mnEditar = new javax.swing.JRadioButtonMenuItem();
+        mnEliminar = new javax.swing.JRadioButtonMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
+        mnRegresar = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -204,11 +204,6 @@ public class VtnProducto extends javax.swing.JFrame {
         cmbCategoria.setBackground(new java.awt.Color(255, 255, 255));
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
-        cmbCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cmbCategoriaFocusGained(evt);
-            }
-        });
         cmbCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbCategoriaMouseClicked(evt);
@@ -344,20 +339,35 @@ public class VtnProducto extends javax.swing.JFrame {
 
         jMenu4.setText("Acciones");
 
-        jRadioButtonMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jRadioButtonMenuItem3.setSelected(true);
-        jRadioButtonMenuItem3.setText("Agregar producto");
-        jMenu4.add(jRadioButtonMenuItem3);
+        mnAgregar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnAgregar.setSelected(true);
+        mnAgregar.setText("Agregar producto");
+        mnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnAgregarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnAgregar);
 
-        jRadioButtonMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jRadioButtonMenuItem2.setSelected(true);
-        jRadioButtonMenuItem2.setText("Editar producto");
-        jMenu4.add(jRadioButtonMenuItem2);
+        mnEditar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnEditar.setSelected(true);
+        mnEditar.setText("Editar producto");
+        mnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnEditarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnEditar);
 
-        jRadioButtonMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jRadioButtonMenuItem4.setSelected(true);
-        jRadioButtonMenuItem4.setText("Eliminar producto");
-        jMenu4.add(jRadioButtonMenuItem4);
+        mnEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnEliminar.setSelected(true);
+        mnEliminar.setText("Eliminar producto");
+        mnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnEliminarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnEliminar);
 
         jMenu2.add(jMenu4);
 
@@ -367,15 +377,15 @@ public class VtnProducto extends javax.swing.JFrame {
 
         jMenu3.setText("Acciones");
 
-        jRadioButtonMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jRadioButtonMenuItem5.setSelected(true);
-        jRadioButtonMenuItem5.setText("Regresar");
-        jRadioButtonMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        mnRegresar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        mnRegresar.setSelected(true);
+        mnRegresar.setText("Regresar");
+        mnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonMenuItem5ActionPerformed(evt);
+                mnRegresarActionPerformed(evt);
             }
         });
-        jMenu3.add(jRadioButtonMenuItem5);
+        jMenu3.add(mnRegresar);
 
         jMenu1.add(jMenu3);
 
@@ -455,10 +465,12 @@ public class VtnProducto extends javax.swing.JFrame {
         objVtnPrin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    public void regresarVentana() {
         objVtnPrin.setVisible(true);
         this.setVisible(false);
+    }
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        regresarVentana();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
@@ -495,7 +507,7 @@ public class VtnProducto extends javax.swing.JFrame {
         objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
     }
     
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void aregarProducto() {
         if (validarCampos()) {
            DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
            
@@ -516,9 +528,11 @@ public class VtnProducto extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Para agregar un nuevo producto, llene todos los campos");
         }
+    }
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        aregarProducto();
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void eliminarProducto() {
         DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
         int selectedrowindex = tblDatos.getSelectedRow();
             
@@ -545,9 +559,12 @@ public class VtnProducto extends javax.swing.JFrame {
                 limpiarCampos();
             }
         } 
+    }
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarProducto();
     }//GEN-LAST:event_btnEliminarActionPerformed
     
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private void editarProducto() {
         DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
         int selectedrowindex = tblDatos.getSelectedRow();
             
@@ -575,6 +592,9 @@ public class VtnProducto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos");
             }
         }
+    }
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editarProducto();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
@@ -588,18 +608,25 @@ public class VtnProducto extends javax.swing.JFrame {
         txtPrecio.setText(tblModel.getValueAt(selectedrowindex, 4).toString());
     }//GEN-LAST:event_tblDatosMouseClicked
 
-    private void cmbCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCategoriaFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCategoriaFocusGained
-
     private void cmbCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCategoriaMouseClicked
-        // TODO add your handling code here:
         actualizarCategorias();
     }//GEN-LAST:event_cmbCategoriaMouseClicked
 
-    private void jRadioButtonMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonMenuItem5ActionPerformed
+    private void mnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRegresarActionPerformed
+        regresarVentana();
+    }//GEN-LAST:event_mnRegresarActionPerformed
+
+    private void mnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAgregarActionPerformed
+        aregarProducto();
+    }//GEN-LAST:event_mnAgregarActionPerformed
+
+    private void mnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarActionPerformed
+        editarProducto();
+    }//GEN-LAST:event_mnEditarActionPerformed
+
+    private void mnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEliminarActionPerformed
+        eliminarProducto();
+    }//GEN-LAST:event_mnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -654,10 +681,6 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCantidad;
@@ -666,6 +689,10 @@ public class VtnProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JRadioButtonMenuItem mnAgregar;
+    private javax.swing.JRadioButtonMenuItem mnEditar;
+    private javax.swing.JRadioButtonMenuItem mnEliminar;
+    private javax.swing.JRadioButtonMenuItem mnRegresar;
     private javax.swing.JSpinner spCantidad;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtNombre;
