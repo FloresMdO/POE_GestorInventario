@@ -335,13 +335,16 @@ public class VtnProducto extends javax.swing.JFrame {
 
         jPanel1.add(Boddy, java.awt.BorderLayout.CENTER);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-edit-property-16.png"))); // NOI18N
         jMenu2.setText("Editar");
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-menu-vertical-16.png"))); // NOI18N
         jMenu4.setText("Acciones");
 
         mnAgregar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnAgregar.setSelected(true);
         mnAgregar.setText("Agregar producto");
+        mnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-create-16.png"))); // NOI18N
         mnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnAgregarActionPerformed(evt);
@@ -352,6 +355,7 @@ public class VtnProducto extends javax.swing.JFrame {
         mnEditar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnEditar.setSelected(true);
         mnEditar.setText("Editar producto");
+        mnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-edit-16.png"))); // NOI18N
         mnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnEditarActionPerformed(evt);
@@ -362,6 +366,7 @@ public class VtnProducto extends javax.swing.JFrame {
         mnEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnEliminar.setSelected(true);
         mnEliminar.setText("Eliminar producto");
+        mnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-delete-16.png"))); // NOI18N
         mnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnEliminarActionPerformed(evt);
@@ -373,13 +378,16 @@ public class VtnProducto extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-page-properties-report-16.png"))); // NOI18N
         jMenu1.setText("Ventana");
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-menu-vertical-16.png"))); // NOI18N
         jMenu3.setText("Acciones");
 
         mnRegresar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnRegresar.setSelected(true);
         mnRegresar.setText("Regresar");
+        mnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-back-16.png"))); // NOI18N
         mnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnRegresarActionPerformed(evt);
