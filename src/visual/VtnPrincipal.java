@@ -27,6 +27,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         btnVentas = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnVentana = new javax.swing.JMenu();
+        mnVenta = new javax.swing.JRadioButtonMenuItem();
+        mnProductos = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(232, 232, 232));
@@ -88,24 +92,65 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
+        mnVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-page-properties-report-16.png"))); // NOI18N
+        mnVentana.setText("Ventana");
+
+        mnVenta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnVenta.setSelected(true);
+        mnVenta.setText("Registrar Venta");
+        mnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-checkout-16.png"))); // NOI18N
+        mnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnVentaActionPerformed(evt);
+            }
+        });
+        mnVentana.add(mnVenta);
+
+        mnProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnProductos.setSelected(true);
+        mnProductos.setText("Ver Productos");
+        mnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-open-box-16.png"))); // NOI18N
+        mnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnProductosActionPerformed(evt);
+            }
+        });
+        mnVentana.add(mnProductos);
+
+        jMenuBar1.add(mnVentana);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+    private void abrirVentanaProductos() {
         if (objVtnProd == null) {
             objVtnProd = new VtnProducto(this, objProducto);  
         }
         objVtnProd.setVisible(true);
         this.setVisible(false);
+    }
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        abrirVentanaProductos();
     }//GEN-LAST:event_btnProductosActionPerformed
-
-    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+    private void abrirVentanaVentas() {
         if (objVtnVenta == null) {
             objVtnVenta = new VtnVenta(this, objProducto);  
         }
         objVtnVenta.setVisible(true);
         this.setVisible(false);
+    }
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        abrirVentanaVentas();
     }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void mnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnVentaActionPerformed
+        abrirVentanaVentas();
+    }//GEN-LAST:event_mnVentaActionPerformed
+
+    private void mnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnProductosActionPerformed
+        abrirVentanaProductos();
+    }//GEN-LAST:event_mnProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,8 +192,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnVentas;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JRadioButtonMenuItem mnProductos;
+    private javax.swing.JRadioButtonMenuItem mnVenta;
+    private javax.swing.JMenu mnVentana;
     // End of variables declaration//GEN-END:variables
 }
