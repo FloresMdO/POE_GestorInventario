@@ -81,17 +81,24 @@ public class VtnProducto extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        Header.setBackground(new java.awt.Color(60, 63, 65));
         Header.setLayout(new java.awt.CardLayout(70, 20));
 
+        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Productos");
         Header.add(lblTitulo, "card2");
 
         jPanel1.add(Header, java.awt.BorderLayout.PAGE_START);
 
+        Boddy.setBackground(new java.awt.Color(245, 245, 245));
         Boddy.setLayout(new java.awt.GridBagLayout());
 
         tblDatos.setAutoCreateRowSorter(true);
+        tblDatos.setBackground(new java.awt.Color(255, 255, 255));
+        tblDatos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(68, 71, 90)));
+        tblDatos.setForeground(new java.awt.Color(0, 0, 0));
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -108,6 +115,9 @@ public class VtnProducto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblDatos.setGridColor(new java.awt.Color(255, 255, 255));
+        tblDatos.setSelectionBackground(new java.awt.Color(208, 230, 255));
+        tblDatos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDatosMouseClicked(evt);
@@ -123,7 +133,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(jScrollPane2, gridBagConstraints);
 
+        lblNombreProducto.setBackground(new java.awt.Color(0, 0, 0));
         lblNombreProducto.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblNombreProducto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreProducto.setText("Nombre");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -133,7 +145,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblNombreProducto, gridBagConstraints);
 
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setColumns(15);
+        txtNombre.setForeground(new java.awt.Color(0, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -143,6 +157,7 @@ public class VtnProducto extends javax.swing.JFrame {
         Boddy.add(txtNombre, gridBagConstraints);
 
         lblDescripcion.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblDescripcion.setForeground(new java.awt.Color(0, 0, 0));
         lblDescripcion.setText("Descripción");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -152,7 +167,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblDescripcion, gridBagConstraints);
 
+        txtaDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         txtaDescripcion.setColumns(20);
+        txtaDescripcion.setForeground(new java.awt.Color(0, 0, 0));
         txtaDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtaDescripcion);
 
@@ -165,6 +182,7 @@ public class VtnProducto extends javax.swing.JFrame {
         Boddy.add(jScrollPane1, gridBagConstraints);
 
         lblCategoria.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblCategoria.setForeground(new java.awt.Color(0, 0, 0));
         lblCategoria.setText("Categoría");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -174,6 +192,8 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblCategoria, gridBagConstraints);
 
+        cmbCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
         cmbCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -194,6 +214,7 @@ public class VtnProducto extends javax.swing.JFrame {
         Boddy.add(cmbCategoria, gridBagConstraints);
 
         lblCantidad.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblCantidad.setForeground(new java.awt.Color(0, 0, 0));
         lblCantidad.setText("Cantidad");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -202,6 +223,7 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblCantidad, gridBagConstraints);
 
+        spCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spCantidad.setPreferredSize(new java.awt.Dimension(100, 27));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -211,6 +233,7 @@ public class VtnProducto extends javax.swing.JFrame {
         Boddy.add(spCantidad, gridBagConstraints);
 
         lblPrecio.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblPrecio.setForeground(new java.awt.Color(0, 0, 0));
         lblPrecio.setText("Precio");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -218,6 +241,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         Boddy.add(lblPrecio, gridBagConstraints);
+
+        txtPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -226,8 +252,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
         Boddy.add(txtPrecio, gridBagConstraints);
 
-        btnEditar.setBackground(new java.awt.Color(102, 255, 255));
+        btnEditar.setBackground(new java.awt.Color(255, 183, 77));
         btnEditar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(95, 30));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -236,13 +263,14 @@ public class VtnProducto extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(btnEditar, gridBagConstraints);
 
-        btnAgregar.setBackground(new java.awt.Color(51, 255, 102));
+        btnAgregar.setBackground(new java.awt.Color(102, 187, 106));
         btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregar.setText("Agregar");
         btnAgregar.setPreferredSize(new java.awt.Dimension(95, 30));
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -251,13 +279,14 @@ public class VtnProducto extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(btnAgregar, gridBagConstraints);
 
-        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar.setBackground(new java.awt.Color(239, 83, 80));
         btnEliminar.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
         btnEliminar.setPreferredSize(new java.awt.Dimension(95, 30));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -271,6 +300,8 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 10);
         Boddy.add(btnEliminar, gridBagConstraints);
 
+        btnRegresar.setBackground(new java.awt.Color(25, 118, 210));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +315,9 @@ public class VtnProducto extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         Boddy.add(btnRegresar, gridBagConstraints);
 
+        btnCategoria.setBackground(new java.awt.Color(25, 118, 210));
         btnCategoria.setFont(new java.awt.Font("Helvetica Neue", 2, 12)); // NOI18N
+        btnCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnCategoria.setText("Crear Categoria");
         btnCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +378,7 @@ public class VtnProducto extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace(); // Maneja el error de la consulta
         }
-        objBD.cerrarConecion();
+        objBD.cerrarConexion();
         // ---------- Lógica para JTable ----------
     }    
     
@@ -402,32 +435,29 @@ public class VtnProducto extends javax.swing.JFrame {
         return bandera;
     }
     
+    private void obtenerInfoCampos() {
+        objProducto.setNombre(txtNombre.getText());
+        objProducto.setCantidad((Integer)(spCantidad.getValue()));
+        objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
+        objProducto.setDescripcion(txtaDescripcion.getText());
+        objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+    }
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (validarCampos()) {
            DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
            
-            // TODO add your handling code here:
-            objProducto.setNombre(txtNombre.getText());
-            objProducto.setCantidad((Integer)(spCantidad.getValue()));
-            objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
-            objProducto.setDescripcion(txtaDescripcion.getText());
-            objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+            obtenerInfoCampos();
             
-            tblModel.addRow(new Object[]{
+            tblModel.addRow(new Object[] {
                 objProducto.getNombre(), objProducto.getDescripcion() , objProducto.getCategoria(), objProducto.getCantidad(), objProducto.getPrecio()
             });
             
             // Todo esto lo saque de este video: https://www.youtube.com/watch?v=A7pKIGhTokQ
-        
-            System.out.println("Se Guardo correctamente");
-            System.out.println("Nombre: " + objProducto.getNombre());
-            System.out.println("Categoria: " + objProducto.getCategoria());
-            System.out.println("Cantidad: " + objProducto.getCantidad());
-            System.out.println("Precio: " + objProducto.getPrecio());
-            
+                    
             objBD.abrirConexion();
             objBD.insertarProducto(objProducto);
-            objBD.cerrarConecion();
+            objBD.cerrarConexion();
             
             JOptionPane.showMessageDialog(this, "Producto creado con éxito");
             limpiarCampos();
@@ -450,21 +480,21 @@ public class VtnProducto extends javax.swing.JFrame {
             
             objBD.abrirConexion();
             objProducto = objBD.buscarProducto(buscando);
-            objBD.cerrarConecion();
+            objBD.cerrarConexion();
             
             if (objProducto != null) {
                 tblModel.removeRow(tblDatos.getSelectedRow());
                 
                 objBD.abrirConexion();
                 objBD.eliminarProducto(objProducto);
-                objBD.cerrarConecion();
+                objBD.cerrarConexion();
                 
-                JOptionPane.showMessageDialog(this, "Producto Eliminado corectamente");
+                JOptionPane.showMessageDialog(this, "Producto eliminado corectamente");
                 limpiarCampos();
             }
         } 
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
         int selectedrowindex = tblDatos.getSelectedRow();
@@ -473,34 +503,32 @@ public class VtnProducto extends javax.swing.JFrame {
         if(tblDatos.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(this, "Por favor, seleccione el producto que desea editar");
         } else {
-            String buscando = txtNombre.getText();
-            
-            objBD.abrirConexion();
-            objProducto = objBD.buscarProducto(buscando);
-            objBD.cerrarConecion();
-            
-            if (objProducto != null) {
-                objBD.abrirConexion();
-                objBD.actualizarProducto(objProducto);
-                objBD.cerrarConecion();
-            }
-            
-        }
+            if (validarCampos()) {
+                String buscando = tblModel.getValueAt(selectedrowindex, 0).toString();
+                System.out.println(buscando);
 
-        // TODO add your handling code here:
-        objProducto.setNombre(txtNombre.getText());
-        objProducto.setCantidad((Integer)(spCantidad.getValue()));
-        objProducto.setCategoria(cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex()));
-        objProducto.setDescripcion(txtaDescripcion.getText());
-        objProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
-        //Se edita 
-        
-        
+                objBD.abrirConexion();
+                objProducto = objBD.buscarProducto(buscando);
+                objBD.cerrarConexion();
+                
+                if (objProducto != null) {
+                    obtenerInfoCampos();
+                    objBD.abrirConexion();
+                    objBD.actualizarProducto(objProducto, buscando);
+                    objBD.cerrarConexion();
+                    
+                    JOptionPane.showMessageDialog(this, "Producto modificado exitosamente");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos");
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
         DefaultTableModel tblModel = (DefaultTableModel)tblDatos.getModel();
         int selectedrowindex = tblDatos.getSelectedRow();
+        
         txtNombre.setText(tblModel.getValueAt(selectedrowindex, 0).toString());
         txtaDescripcion.setText(tblModel.getValueAt(selectedrowindex, 1).toString());
         cmbCategoria.setSelectedItem(tblModel.getValueAt(selectedrowindex, 2));

@@ -37,14 +37,19 @@ public class VtnVenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(60, 63, 65));
+
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Registrar nueva venta");
         jPanel1.add(lblTitulo);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
+        jPanel2.setBackground(new java.awt.Color(245, 245, 245));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
+        lblProducto.setForeground(new java.awt.Color(0, 0, 0));
         lblProducto.setText("Selecciona un producto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -52,6 +57,8 @@ public class VtnVenta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanel2.add(lblProducto, gridBagConstraints);
 
+        lsProductos.setBackground(new java.awt.Color(255, 255, 255));
+        lsProductos.setForeground(new java.awt.Color(0, 0, 0));
         lsProductos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -67,6 +74,7 @@ public class VtnVenta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 0);
         jPanel2.add(jScrollPane1, gridBagConstraints);
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Ingresa cantidad vendida:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -80,12 +88,16 @@ public class VtnVenta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanel2.add(spCantidad, gridBagConstraints);
 
+        btnVenda.setBackground(new java.awt.Color(25, 118, 210));
+        btnVenda.setForeground(new java.awt.Color(255, 255, 255));
         btnVenda.setText("Confirmar venta");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(btnVenda, gridBagConstraints);
+
+        jProgressBar1.setBackground(new java.awt.Color(165, 214, 167));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -94,6 +106,7 @@ public class VtnVenta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 10, 15, 10);
         jPanel2.add(jProgressBar1, gridBagConstraints);
 
+        btnRegresar.setBackground(new java.awt.Color(25, 118, 210));
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

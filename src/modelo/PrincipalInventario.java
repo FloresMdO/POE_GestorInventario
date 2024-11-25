@@ -9,6 +9,6 @@ public class PrincipalInventario {
         ProductoDB objBD = new ProductoDB();
         
         objBD.abrirConexion();
-        objBD.cerrarConecion();      
+        objBD.cerrarConexion();      
     }
 }

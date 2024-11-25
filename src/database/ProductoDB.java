@@ -11,7 +11,7 @@ import modelo.Producto;
 public class ProductoDB {
     
     private String nombreBD = "proyecto_poe";
-    private String puerto = "3306";
+    private String puerto = "3030"; // 3306
     private String usuario = "root";
     private String clave = "";
     private String url = "jdbc:mysql://localhost:" + puerto +"/" + nombreBD + "?useUnicode=true&use" +
@@ -41,7 +41,7 @@ public class ProductoDB {
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al conectarse a la base de datos: " + nombreBD);   
+            System.out.println("PRODUCTO: Error al conectarse a la base de datos: " + nombreBD);   
         }
     }
     
@@ -55,7 +55,7 @@ public class ProductoDB {
         return conn;
     }
     
-    public void cerrarConecion() {
+    public void cerrarConexion() {
         try {
             conn.close();
         } catch (SQLException ex) {
@@ -84,7 +84,8 @@ public class ProductoDB {
         ResultSet rs;
         try {
             stConsultar.setString(1, nombre);  
-            rs = stConsultar.executeQuery();    // Linea importante para ejecutar sentencia, siempre que se quiera regresar info
+            rs = stConsultar.executeQuery();
+            
             if (rs.next()) {
                 objProducto = new Producto();
                 objProducto.setNombre(rs.getString("nombre"));
@@ -100,15 +101,17 @@ public class ProductoDB {
         return objProducto; 
     }
     
-    public void actualizarProducto(Producto objProducto) {
+    public void actualizarProducto(Producto objProducto, String buscar) {
         try {
             stActualizar.setString(1, objProducto.getNombre());
             stActualizar.setString(2, objProducto.getDescripcion());
             stActualizar.setString(3, objProducto.getCategoria());
                stActualizar.setInt(4, objProducto.getCantidad());
             stActualizar.setDouble(5, objProducto.getPrecio());
+            stActualizar.setString(6, buscar);
             
             stActualizar.executeLargeUpdate();
+            System.out.println(stActualizar);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -78,17 +78,25 @@ public class VtnCategoria extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(60, 63, 65));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setBackground(new java.awt.Color(60, 63, 65));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Agregar nueva categoria");
         jPanel2.add(lblTitulo);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
+        jPanel3.setBackground(new java.awt.Color(245, 245, 245));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        lsCategorias.setBackground(new java.awt.Color(255, 255, 255));
+        lsCategorias.setForeground(new java.awt.Color(0, 0, 0));
         lsCategorias.setPreferredSize(new java.awt.Dimension(200, 150));
         lsCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -104,6 +112,7 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jScrollPane1, gridBagConstraints);
 
+        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre.setText("Nombre");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -112,7 +121,9 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         jPanel3.add(lblNombre, gridBagConstraints);
 
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setColumns(10);
+        txtNombre.setForeground(new java.awt.Color(0, 0, 0));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -126,6 +137,7 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(txtNombre, gridBagConstraints);
 
+        lblDescripcion.setForeground(new java.awt.Color(0, 0, 0));
         lblDescripcion.setText("Descripción");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -133,7 +145,9 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         jPanel3.add(lblDescripcion, gridBagConstraints);
 
+        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setColumns(20);
+        txtDescripcion.setForeground(new java.awt.Color(0, 0, 0));
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
@@ -144,6 +158,9 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jScrollPane2, gridBagConstraints);
 
+        btnAgregar.setBackground(new java.awt.Color(102, 187, 106));
+        btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +173,9 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 10);
         jPanel3.add(btnAgregar, gridBagConstraints);
 
+        btnEditar.setBackground(new java.awt.Color(255, 183, 77));
+        btnEditar.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,11 +183,14 @@ public class VtnCategoria extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 10);
         jPanel3.add(btnEditar, gridBagConstraints);
 
+        btnEliminar.setBackground(new java.awt.Color(239, 83, 80));
+        btnEliminar.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,11 +198,12 @@ public class VtnCategoria extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 10);
         jPanel3.add(btnEliminar, gridBagConstraints);
 
+        lblListaCategorias.setForeground(new java.awt.Color(0, 0, 0));
         lblListaCategorias.setText("Lista de Categorias:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -187,6 +211,8 @@ public class VtnCategoria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         jPanel3.add(lblListaCategorias, gridBagConstraints);
 
+        btnRegresar.setBackground(new java.awt.Color(25, 118, 210));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

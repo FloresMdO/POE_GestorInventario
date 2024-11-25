@@ -1,4 +1,3 @@
-
 package database;
 
 import java.sql.Connection;
@@ -10,11 +9,12 @@ import java.sql.ResultSet;
 import modelo.Categoria;
 
 public class CategoriaBD {
+    
     private String nombreBD = "proyecto_poe";
-    private String puerto = "3306";
+    private String puerto = "3030"; // 3306
     private String usuario = "root";
     private String clave = "";
-    private String url = "jdbc:mysql://localhost:" + puerto +"/" + nombreBD + "?useUnicode=true&use" +
+    private String url = "jdbc:mysql://localhost:" + puerto + "/" + nombreBD + "?useUnicode=true&use" +
                          "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + 
                          "serverTimezone=GMT-5"; // GMT-5
     
@@ -36,7 +36,7 @@ public class CategoriaBD {
             conn = DriverManager.getConnection(url,usuario,clave);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al conectarse a la base de datos: " + nombreBD);   
+            System.out.println("CATEGORIA: Error al conectarse a la base de datos: " + nombreBD);   
         }
         return conn;
     }
@@ -60,7 +60,7 @@ public class CategoriaBD {
             conn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al cerrar la conexión con la base de datos: " + nombreBD);
+            System.out.println("CATEGORIA: Error al cerrar la conexión con la base de datos: " + nombreBD);
         }   
     }
     public void insertarCategoria(Categoria objCategoria) {
@@ -71,7 +71,7 @@ public class CategoriaBD {
             stInsertar.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al insertar registro en la base de datos " + nombreBD);
+            System.out.println("Error al insertar categoria en la base de datos " + nombreBD);
         }
     }
     
@@ -91,7 +91,7 @@ public class CategoriaBD {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al consultar producto en la base de datos " + nombreBD); 
+            System.out.println("Error al consultar categoria en la base de datos " + nombreBD); 
         }
         return objCategoria; 
     }
@@ -104,7 +104,7 @@ public class CategoriaBD {
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al actualzar las producto en la base de datos " + nombreBD);
+            System.out.println("Error al actualzar las categoria en la base de datos " + nombreBD);
             
         }
     }
@@ -115,7 +115,7 @@ public class CategoriaBD {
             stEliminar.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error al eliminar producto de la base de datos " + nombreBD);
+            System.out.println("Error al eliminar categoria de la base de datos " + nombreBD);
         }
     }
 }
