@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class UsuariosBD {
     
     private String nombreBD = "proyecto_poe";
-    private String puerto = "3030"; // 3306
+    private String puerto = "3306"; // 3030
     private String usuario = "root";
     private String clave = "";
     private String url = "jdbc:mysql://localhost:" + puerto +"/" + nombreBD + "?useUnicode=true&use" +
