@@ -582,7 +582,6 @@ public class VtnProducto extends javax.swing.JFrame {
         } else {
             if (validarCampos()) {
                 String buscando = tblModel.getValueAt(selectedrowindex, 0).toString();
-                System.out.println(buscando);
 
                 objBD.abrirConexion();
                 objProducto = objBD.buscarProducto(buscando);

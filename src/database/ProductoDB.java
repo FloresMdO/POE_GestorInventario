@@ -111,7 +111,6 @@ public class ProductoDB {
             stActualizar.setString(6, buscar);
             
             stActualizar.executeLargeUpdate();
-            System.out.println(stActualizar);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
