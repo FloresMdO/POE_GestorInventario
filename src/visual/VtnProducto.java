@@ -594,6 +594,20 @@ public class VtnProducto extends javax.swing.JFrame {
                     objBD.actualizarProducto(objProducto, buscando);
                     objBD.cerrarConexion();
                     
+                    // Actualizar JTable
+                    String nombre      = txtNombre.getText();
+                    String descripcion = txtaDescripcion.getText();
+                    String categoria   = cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex());
+                    String cantidad    = String.valueOf(spCantidad.getValue());
+                    String precio      = String.valueOf(txtPrecio.getText());
+                    
+                    tblModel.setValueAt(nombre, tblDatos.getSelectedRow(), 0);
+                    tblModel.setValueAt(descripcion, tblDatos.getSelectedRow(), 1);
+                    tblModel.setValueAt(categoria, tblDatos.getSelectedRow(), 2);
+                    tblModel.setValueAt(cantidad, tblDatos.getSelectedRow(), 3);
+                    tblModel.setValueAt(precio, tblDatos.getSelectedRow(), 4);
+                   
+                    
                     JOptionPane.showMessageDialog(this, "Producto modificado exitosamente");
                 }
             } else {
